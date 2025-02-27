@@ -1,4 +1,7 @@
 package de.gregorstallmeister.springrecap;
 
-public record ToDoPostDto() {
+public record ToDoPostDto(
+        String description,
+        String status
+) {
 }
