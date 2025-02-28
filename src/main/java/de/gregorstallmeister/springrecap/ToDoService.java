@@ -38,7 +38,6 @@ public class ToDoService {
         Optional<ToDo> toDoToUpdate = toDoRepository.findById(id);
 
         if (toDoToUpdate.isPresent()) {
-//            ToDo toDoUpdated = new ToDo(id, description, status);
             ToDo toDoUpdated = toDoToUpdate.get().withDescription(description).withStatus(status);
             toDoRepository.save(toDoUpdated);
 
