@@ -87,7 +87,7 @@ public class ToDoControllerIntegrationTest {
                                     "status": "OPEN"
                                   }
                                 """))
-                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.status().isCreated())
                 .andExpect(MockMvcResultMatchers.content().json("""
                         {
                           "description": "myFurtherTest",
