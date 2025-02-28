@@ -46,4 +46,16 @@ public class ToDoService {
 
         throw new NoSuchElementException("ToDo to update was not found with id " + id);
     }
+
+    public void deleteToDo(String id) {
+        Optional<ToDo> toDoOptional = toDoRepository.findById(id);
+
+        if (toDoOptional.isPresent()) {
+            toDoRepository.delete(toDoOptional.get());
+
+            return;
+        }
+
+        throw new NoSuchElementException("ToDo to delete was not found with id " + id);
+    }
 }

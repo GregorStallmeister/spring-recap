@@ -43,4 +43,9 @@ public class ToDoController {
 
         return ToDoWrapper.wrapForInteracting(updatedToDo);
     }
+
+    @DeleteMapping("/api/todo/{id}")
+    public void deleteToDo(@PathVariable String id) {
+        toDoService.deleteToDo(id);
+    }
 }
