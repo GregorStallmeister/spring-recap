@@ -1,6 +1,6 @@
 package de.gregorstallmeister.springrecap;
 
-public record ToDoGetDto(
+public record ToDoInteractDto(
         String id,
         String description,
         String status

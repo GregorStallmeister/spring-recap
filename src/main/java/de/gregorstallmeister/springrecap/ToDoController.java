@@ -15,25 +15,25 @@ public class ToDoController {
     }
 
     @GetMapping("/board/todo")
-    public List<ToDoGetDto> getToDosBoard() {
-        return toDoService.getToDos();
+    public List<ToDoInteractDto> getToDosBoard() {
+        return ToDoWrapper.wrapForInteracting(toDoService.getToDos());
     }
 
     @GetMapping("/api/todo")
-    public List<ToDoGetDto> getToDosApi() {
-        return toDoService.getToDos();
+    public List<ToDoInteractDto> getToDosApi() {
+        return ToDoWrapper.wrapForInteracting(toDoService.getToDos());
     }
 
     @GetMapping("/api/todo/{id}")
-    public ToDoGetDto getTodoByID(@PathVariable String id) {
-        return ToDoWrapper.wrapForGet(toDoService.getToDoByID(id));
+    public ToDoInteractDto getTodoByID(@PathVariable String id) {
+        return ToDoWrapper.wrapForInteracting(toDoService.getToDoByID(id));
     }
 
     @PostMapping("/api/todo")
-    public ToDoGetDto insertToDo(@RequestBody ToDoPostDto toDoPostDto) {
+    public ToDoInteractDto insertToDo(@RequestBody ToDoInsertDto toDoInsertDto) {
         ToDo toDo;
-        toDo = toDoService.insertToDo(toDoPostDto.description(), toDoPostDto.status());
+        toDo = toDoService.insertToDo(toDoInsertDto.description(), toDoInsertDto.status());
 
-        return ToDoWrapper.wrapForGet(toDo);
+        return ToDoWrapper.wrapForInteracting(toDo);
     }
 }
