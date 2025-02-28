@@ -23,9 +23,7 @@ public class ToDoServiceTest {
     void getToDoByIdExpectNoSuchElementExceptionWhenCalledWithNonExistingId() {
         String id = "test1234NotExists";
 
-        assertThrows(NoSuchElementException.class, () -> {
-            toDoService.getToDoByID(id);
-        });
+        assertThrows(NoSuchElementException.class, () -> toDoService.getToDoByID(id));
         verify(mockToDoRepository).findById(id);
     }
 

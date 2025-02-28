@@ -38,7 +38,7 @@ public class ToDoController {
     }
 
     @PutMapping ("/api/todo/{id}")
-    public ToDoInteractDto updateToDo(@PathVariable String id, @RequestBody ToDoInteractDto toDoInteractDto) {
+    public ToDoInteractDto updateToDo(@RequestBody ToDoInteractDto toDoInteractDto) {
         ToDo updatedToDo = toDoService.updateToDo(toDoInteractDto.id(), toDoInteractDto.description(), toDoInteractDto.status());
 
         return ToDoWrapper.wrapForInteracting(updatedToDo);
