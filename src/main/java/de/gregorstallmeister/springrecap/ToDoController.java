@@ -36,4 +36,11 @@ public class ToDoController {
 
         return ToDoWrapper.wrapForInteracting(toDo);
     }
+
+    @PutMapping ("/api/todo/{id}")
+    public ToDoInteractDto updateToDo(@PathVariable String id, @RequestBody ToDoInteractDto toDoInteractDto) {
+        ToDo updatedToDo = toDoService.updateToDo(toDoInteractDto.id(), toDoInteractDto.description(), toDoInteractDto.status());
+
+        return ToDoWrapper.wrapForInteracting(updatedToDo);
+    }
 }
