@@ -8,7 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public record ToDo(
         String id,
         String description,
-        String status
+        Status status
 ) {
 
 }
