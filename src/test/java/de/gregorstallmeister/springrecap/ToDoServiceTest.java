@@ -31,7 +31,6 @@ public class ToDoServiceTest {
     void insertToDo() {
         // given
         String description = "myTest";
-        String status = "OPEN";
         IdService idService = new IdService();
         String id = idService.randomID();
         ToDo toDoMocked = new ToDo(id, description, Status.OPEN);
