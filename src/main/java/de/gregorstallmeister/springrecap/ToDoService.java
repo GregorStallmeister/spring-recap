@@ -26,7 +26,7 @@ public class ToDoService {
         throw new NoSuchElementException("ToDo to get was not found with id " + id);
     }
 
-    public ToDo insertToDo(String description, String status) {
+    public ToDo insertToDo(String description, Status status) {
         IdService idService = new IdService();
         ToDo toDo = new ToDo(idService.randomID(), description, status);
         toDoRepository.insert(toDo);
@@ -34,7 +34,7 @@ public class ToDoService {
         return toDo;
     }
 
-    public ToDo updateToDo(String id, String description, String status) {
+    public ToDo updateToDo(String id, String description, Status status) {
         Optional<ToDo> toDoToUpdate = toDoRepository.findById(id);
 
         if (toDoToUpdate.isPresent()) {

@@ -33,7 +33,7 @@ public class ToDoControllerIntegrationTest {
         // given
         IdService idService = new IdService();
         String id = idService.randomID();
-        ToDo toDo = new ToDo(id, "My test description", "OPEN");
+        ToDo toDo = new ToDo(id, "My test description", Status.OPEN);
         toDoRepository.save(toDo);
 
         // when + then
@@ -56,7 +56,7 @@ public class ToDoControllerIntegrationTest {
         // given
         IdService idService = new IdService();
         String id = idService.randomID();
-        ToDo toDo = new ToDo(id, "testDescription", "OPEN");
+        ToDo toDo = new ToDo(id, "testDescription", Status.OPEN);
         toDoRepository.insert(toDo);
 
         // when + then
@@ -103,7 +103,7 @@ public class ToDoControllerIntegrationTest {
         // given
         IdService idService = new IdService();
         String id = idService.randomID();
-        ToDo toDo = new ToDo(id, "anotherDescription", "OPEN");
+        ToDo toDo = new ToDo(id, "anotherDescription", Status.OPEN);
         toDoRepository.insert(toDo);
 
         // when + then

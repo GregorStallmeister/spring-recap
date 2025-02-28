@@ -34,11 +34,11 @@ public class ToDoServiceTest {
         String status = "OPEN";
         IdService idService = new IdService();
         String id = idService.randomID();
-        ToDo toDoMocked = new ToDo(id, description, status);
+        ToDo toDoMocked = new ToDo(id, description, Status.OPEN);
         when(mockToDoRepository.insert(toDoMocked)).thenReturn(toDoMocked);
 
         // when
-        ToDo toDoInserted = toDoService.insertToDo(description, status);
+        ToDo toDoInserted = toDoService.insertToDo(description, Status.OPEN);
 
         // then
         verify(mockToDoRepository).insert(toDoInserted);
@@ -51,13 +51,13 @@ public class ToDoServiceTest {
     @Test
     void updateToDo() {
         // given
-        ToDo toDoFresh = toDoService.insertToDo("myTest", "OPEN");
-        ToDo toDoUpdatedExpected = toDoFresh.withDescription("myTestUpdated").withStatus("IN_PROGRESS");
+        ToDo toDoFresh = toDoService.insertToDo("myTest", Status.OPEN);
+        ToDo toDoUpdatedExpected = toDoFresh.withDescription("myTestUpdated").withStatus(Status.IN_PROGRESS);
         when(mockToDoRepository.findById(toDoFresh.id())).thenReturn(Optional.of(toDoFresh));
         when(mockToDoRepository.save(toDoUpdatedExpected)).thenReturn(toDoUpdatedExpected);
 
         // when
-        ToDo toDoUpdatedActual = toDoService.updateToDo(toDoFresh.id(), "myTestUpdated", "IN_PROGRESS");
+        ToDo toDoUpdatedActual = toDoService.updateToDo(toDoFresh.id(), "myTestUpdated", Status.IN_PROGRESS);
 
         // then
         verify(mockToDoRepository).findById(toDoFresh.id());
