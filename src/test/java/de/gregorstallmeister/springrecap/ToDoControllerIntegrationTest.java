@@ -1,6 +1,7 @@
 package de.gregorstallmeister.springrecap;
 
 import jakarta.servlet.ServletException;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -13,8 +14,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.NoSuchElementException;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @SpringBootTest
@@ -120,28 +120,13 @@ public class ToDoControllerIntegrationTest {
 
     @Test
     @DirtiesContext
-    void getToDoByIDExpectExceptionWithNonExistingId() {
-        assertThrows(ServletException.class, () -> {
-            // backend method throws NoSuchElementException. Framework catches it and throws jakarta.servlet.ServletException.
-           mockMvc.perform(MockMvcRequestBuilders.get("/api/todo/test1234"))
-                   .andExpect(MockMvcResultMatchers.status().isOk());
-        });
-    }
-
-    @Test
-    @DirtiesContext
-    void getToDoByIDExpectExceptionWithNonExistingIdCatchException() {
-        try
-        {
-            // backend method throws NoSuchElementException. Framework catches it and throws jakarta.servlet.ServletException.
+    void getToDoByIDExpectNotFoundAndErrorMessageWhenCalledWithNonExistingId() {
+        try {
             mockMvc.perform(MockMvcRequestBuilders.get("/api/todo/test1234"))
-                    .andExpect(MockMvcResultMatchers.status().isOk());
-        }
-        catch (Exception ex) {
-            assertTrue(ex.getCause().toString().matches(".*NoSuchElementException.*"));
-
-            NoSuchElementException causeEx = (NoSuchElementException) ex.getCause();
-            System.out.println(causeEx.toString());
+                    .andExpect(MockMvcResultMatchers.status().isNotFound())
+                    .andExpect(MockMvcResultMatchers.jsonPath("$.errorMessage").isNotEmpty());
+        } catch (Exception ex) {
+            Assertions.fail();
         }
     }
 }
