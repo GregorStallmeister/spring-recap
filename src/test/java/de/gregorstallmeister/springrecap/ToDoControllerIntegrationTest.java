@@ -25,93 +25,117 @@ public class ToDoControllerIntegrationTest {
 
     @Test
     @DirtiesContext
-    void getToDosBoard() throws Exception {
+    void getToDosBoard() {
         // given
         IdService idService = new IdService();
         String id = idService.randomID();
         ToDo toDo = new ToDo(id, "My test description", Status.OPEN);
         toDoRepository.save(toDo);
 
-        // when + then
-        mockMvc.perform(MockMvcRequestBuilders.get("/board/todo"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("""
-                        [
-                          {
-                            "description": "My test description",
-                            "status": "OPEN"
-                          }
-                        ]
-                        """));
-//                .andExpect(jsonPath("$.id").isNotEmpty()); // does not work, cause got an array, not a single object
+        try {
+            // when + then
+            mockMvc.perform(MockMvcRequestBuilders.get("/board/todo"))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            
+                                [
+                              {
+                                "description": "My test description",
+                                "status": "OPEN"
+                              }
+                            ]
+                            """));
+//                .andExpect(jsonPath("$.id").isNotEmpty()); // does not work, cause got not a single object
+        } catch (Exception e) {
+            Assertions.fail();
+        }
     }
 
     @Test
     @DirtiesContext
-    void getToDosApi() throws Exception {
+    void getToDosApi() {
         // given
         IdService idService = new IdService();
         String id = idService.randomID();
         ToDo toDo = new ToDo(id, "testDescription", Status.OPEN);
         toDoRepository.insert(toDo);
 
-        // when + then
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/todo"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("""
-                        [
+        try {
+            // when + then
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/todo"))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                        
+                            [
                           {
                             "description": "testDescription",
                             "status": "OPEN"
                           }
                         ]
                         """));
+        } catch (Exception e) {
+            Assertions.fail();
+        }
     }
 
     @Test
     @DirtiesContext
-    void insertToDo() throws Exception {
+    void insertToDo() {
         // given: Nothing but the class members
 
-        // when + then
-        mockMvc.perform(MockMvcRequestBuilders
-                        .post("/api/todo")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content("""
-                                  {
-                                    "description": "myFurtherTest",
-                                    "status": "OPEN"
-                                  }
-                                """))
-                .andExpect(MockMvcResultMatchers.status().isCreated())
-                .andExpect(MockMvcResultMatchers.content().json("""
-                        {
-                          "description": "myFurtherTest",
-                          "status": "OPEN"
-                        }
-                        """))
-                .andExpect(jsonPath("$.id").isNotEmpty());
+        try {
+            // when + then
+            mockMvc.perform(MockMvcRequestBuilders
+                            .post("/api/todo")
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content("""
+                                      {
+                                        "description": "myFurtherTest",
+                                        "status": "OPEN"
+                                      }
+                                    """))
+                    .andExpect(MockMvcResultMatchers.status().isCreated())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            
+                                 {
+                               "description": "myFurtherTest",
+                               "status": "OPEN"
+                             }
+                            
+                            """))
+                    .andExpect(jsonPath("$.id").isNotEmpty());
+        }
+        catch (Exception e) {
+            Assertions.fail();
+        }
     }
 
     @Test
     @DirtiesContext
-    void getToDoById() throws Exception {
+    void getToDoById() {
         // given
         IdService idService = new IdService();
         String id = idService.randomID();
         ToDo toDo = new ToDo(id, "anotherDescription", Status.OPEN);
         toDoRepository.insert(toDo);
 
-        // when + then
-        mockMvc.perform(MockMvcRequestBuilders.get("/api/todo/" + id))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().json("""
-                        {
-                          "description": "anotherDescription",
-                          "status": "OPEN"
-                        }
-                        """))
-                .andExpect(jsonPath("$.id").value(id));
+        try {
+            // when + then
+            mockMvc.perform(MockMvcRequestBuilders.get("/api/todo/" + id))
+                    .andExpect(MockMvcResultMatchers.status().isOk())
+                    .andExpect(MockMvcResultMatchers.content().json("""
+                            
+                                 {
+                               "description": "anotherDescription",
+                               "status": "OPEN"
+                             }
+                            
+                            """))
+                    .andExpect(jsonPath("$.id").value(id));
+        }
+        catch (Exception e) {
+            Assertions.fail();
+        }
     }
 
     @Test
