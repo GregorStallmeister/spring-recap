@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorMessage handleAllOtherExceptions(Exception exception) {
-        System.out.println(exception);
+        System.out.println(exception.toString());
         return new ErrorMessage("An error has occurred: " + exception.getMessage(), ZonedDateTime.now());
     }
 }
